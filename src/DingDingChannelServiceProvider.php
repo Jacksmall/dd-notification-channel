@@ -7,6 +7,7 @@ use Illuminate\Notifications\ChannelManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
 use Jacksmall\DdNotificationChannel\Channels\DingDingChannel;
+use Jacksmall\DdNotificationChannel\Messages\Factory\AbstractDingDingMsgFactory;
 
 class DingDingChannelServiceProvider extends ServiceProvider
 {
@@ -21,6 +22,9 @@ class DingDingChannelServiceProvider extends ServiceProvider
             $service->extend('dingding', function ($app) {
                 return new DingDingChannel($app->make(Client::class));
             });
+        });
+        $this->app->singleton(AbstractDingDingMsgFactory::class, function ($app, $params) {
+            return DingDingFactoryRouter::createFactory($params['type']);
         });
     }
 }
