@@ -19,7 +19,11 @@ class DingDingChannelServiceProvider extends ServiceProvider
     {
         Notification::resolved(function (ChannelManager $service) {
             $service->extend('dingding', function ($app) {
-                return new DingDingChannel($app->make(Client::class));
+                return new DingDingChannel($app->make(Client::class, [
+                    'config'  => [
+                        'verify' => false
+                    ]
+                ]));
             });
         });
     }
