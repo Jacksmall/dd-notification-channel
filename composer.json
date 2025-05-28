@@ -1,0 +1,15 @@
+{
+    "name": "jacksmall/dd-notification-channel",
+    "autoload": {
+        "psr-4": {
+            "Jacksmall\\DdNotificationChannel\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "chenkuan",
+            "email": "812254315@qq.com"
+        }
+    ],
+    "require": {}
+}
