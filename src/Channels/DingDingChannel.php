@@ -58,7 +58,7 @@ class DingDingChannel
             'verify' => false,
             'json' => array_merge([
                 'msgtype' => data_get($message, 'channel'),
-                'text' => json_encode(['content' => data_get($message, 'text')], JSON_UNESCAPED_UNICODE)
+                'text' => ['content' => data_get($message, 'text')]
             ], $optionalFields),
         ], $message->http);
     }
