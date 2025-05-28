@@ -1,5 +1,8 @@
 {
     "name": "jacksmall/dd-notification-channel",
+    "description": "DingDing Notification Channel for laravel.",
+    "keywords": ["laravel", "notifications", "dingtalk", "dingding"],
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Jacksmall\\DdNotificationChannel\\": "src/"
@@ -11,5 +14,9 @@
             "email": "812254315@qq.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^7.1.3|^8.0",
+        "guzzlehttp/guzzle": "^6.0|^7.0",
+        "illuminate/notifications": "~5.8.0|^6.0|^7.0|^8.0|^9.0|^10.0"
+    }
 }
