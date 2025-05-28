@@ -55,6 +55,6 @@ class DingDingChannel
             'singleTitle' => data_get($message, 'singleTitle'),
             'btnOrientation' => data_get($message, 'btnOrientation'),
         ]);
-        return [$optionalFields];
+        return array_merge(['verify' => false], $optionalFields);
     }
 }
