@@ -8,7 +8,7 @@ use Jacksmall\DdNotificationChannel\Messages\MessageBuilder;
 class MarkdownMsg extends AbstractDingDingMsgFactory
 {
 
-    public function createBuilder(): MarkdownMessageBuilder
+    public function createBuilder(): MessageBuilder
     {
         return new MarkdownMessageBuilder();
     }

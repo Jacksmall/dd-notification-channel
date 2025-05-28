@@ -5,7 +5,7 @@ namespace Jacksmall\DdNotificationChannel\Channels;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Notifications\Notification;
-use Jacksmall\DdNotificationChannel\Messages\Factory\AbstractDingDingMsgFactory;
+use Jacksmall\DdNotificationChannel\DingDingFactoryRouter;
 use Psr\Http\Message\ResponseInterface;
 
 class DingDingChannel
@@ -39,7 +39,7 @@ class DingDingChannel
             throw new \InvalidArgumentException('toDingDing must return an array with type and params keys');
         }
 
-        $messageBody = app(AbstractDingDingMsgFactory::class, ['type' => $message['type']])->create($message['params']);
+        $messageBody = DingDingFactoryRouter::createFactory($message['type'])->create($message['params']);
 
         $options = [
             'headers' => [

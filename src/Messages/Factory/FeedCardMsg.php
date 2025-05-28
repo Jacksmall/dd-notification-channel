@@ -9,7 +9,7 @@ use Jacksmall\DdNotificationChannel\Messages\MessageBuilder;
 class FeedCardMsg extends AbstractDingDingMsgFactory
 {
 
-    public function createBuilder(): FeedCardMessageBuilder
+    public function createBuilder(): MessageBuilder
     {
         return new FeedCardMessageBuilder();
     }
