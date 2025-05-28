@@ -55,7 +55,6 @@ class DingDingChannel
             'btnOrientation' => data_get($message, 'btnOrientation'),
         ]);
         return array_merge([
-            'verify' => false,
             'json' => array_merge([
                 'msgtype' => data_get($message, 'channel'),
                 'text' => ['content' => data_get($message, 'text')]
