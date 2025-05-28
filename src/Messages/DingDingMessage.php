@@ -140,6 +140,8 @@ class DingDingMessage
      */
     public $feedCard;
 
+    public $http = [];
+
     /**
      * @return $this
      */
@@ -308,6 +310,13 @@ class DingDingMessage
         $this->feedCard[] = $link = new FeedCardLinks;
 
         $callback($link);
+
+        return $this;
+    }
+
+    public function http(array $options)
+    {
+        $this->http = $options;
 
         return $this;
     }

@@ -49,12 +49,15 @@ class DingDingChannel
             'atUserIds' => data_get($message, 'atUserIds'),
             'isAtAll' => data_get($message, 'isAtAll'),
             'title' => data_get($message, 'title'),
-            'text' => data_get($message, 'text'),
             'messageUrl' => data_get($message, 'messageUrl'),
             'picUrl' => data_get($message, 'picUrl'),
             'singleTitle' => data_get($message, 'singleTitle'),
             'btnOrientation' => data_get($message, 'btnOrientation'),
         ]);
-        return array_merge(['verify' => false], $optionalFields);
+        return array_merge([
+            'json' => array_merge([
+                'text' => $message->text
+            ], $optionalFields),
+        ], $message->http);
     }
 }
