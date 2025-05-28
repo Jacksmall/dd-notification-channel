@@ -23,7 +23,7 @@ class DingDingChannelServiceProvider extends ServiceProvider
                 return new DingDingChannel($app->make(Client::class));
             });
         });
-        $this->app->singleton(AbstractDingDingMsgFactory::class, function ($app, $params) {
+        $this->app->bind(AbstractDingDingMsgFactory::class, function ($app, $params) {
             return DingDingFactoryRouter::createFactory($params['type']);
         });
     }
