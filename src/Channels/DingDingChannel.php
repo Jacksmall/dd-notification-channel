@@ -5,7 +5,7 @@ namespace Jacksmall\DdNotificationChannel\Channels;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Notifications\Notification;
-use Jacksmall\DdNotificationChannel\Messages\DingDingMessage;
+use Jacksmall\DdNotificationChannel\Messages\DingDingMessageFactory;
 use Psr\Http\Message\ResponseInterface;
 
 class DingDingChannel
@@ -32,33 +32,27 @@ class DingDingChannel
             return;
         }
 
-        return $this->http->post($url, $this->buildJsonPayload(
-            $notification->toDingDing($notifiable)
-        ));
-    }
+        $message = $notification->toDingDing($notifiable);
 
-    /**
-     * @param DingDingMessage $message
-     * @return array
-     */
-    protected function buildJsonPayload(DingDingMessage $message)
-    {
-        $optionalFields = array_filter([
-            'content' => data_get($message, 'content'),
-            'atMobiles' => data_get($message, 'atMobiles'),
-            'atUserIds' => data_get($message, 'atUserIds'),
-            'isAtAll' => data_get($message, 'isAtAll'),
-            'title' => data_get($message, 'title'),
-            'messageUrl' => data_get($message, 'messageUrl'),
-            'picUrl' => data_get($message, 'picUrl'),
-            'singleTitle' => data_get($message, 'singleTitle'),
-            'btnOrientation' => data_get($message, 'btnOrientation'),
-        ]);
-        return array_merge([
-            'json' => array_merge([
-                'msgtype' => data_get($message, 'channel'),
-                'text' => ['content' => data_get($message, 'text')]
-            ], $optionalFields),
-        ], $message->http);
+        // 验证消息格式
+        if (!is_array($message) || !isset($message['type']) || !isset($message['params'])) {
+            throw new \InvalidArgumentException('toDingDing must return an array with type and params keys');
+        }
+
+        $messageBody = DingDingMessageFactory::create($message['type'], $message['params']);
+
+        $options = [
+            'headers' => [
+                'Content-Type' => 'application/json'
+            ],
+            'json' => $messageBody
+        ];
+
+        // 添加 HTTP 选项（如超时设置）
+        if (isset($message['http'])) {
+            $options = array_merge($options, $message['http']);
+        }
+
+        return $this->http->post($url, $options);
     }
 }
