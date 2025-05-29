@@ -165,11 +165,10 @@ App\Notifications\TestDingDingNotice.php
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Notification;
 use Jacksmall\DdNotificationChannel\Channels\DingDingChannel;
 
-class TestDingDingNotice extends Notification implements ShouldQueue
+class TestDingDingNotice extends Notification
 {
     use Queueable;
 
